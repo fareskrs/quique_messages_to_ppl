@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Love</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #2e7d32;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #c8e6c9;
+            border-radius: 12px;
+            background: #f1f8e9;
+            color: #2e7d32;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4caf50;
+            background: white;
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+        }
+
+        .message {
+            min-height: 60px;
+            font-size: 18px;
+            color: #1b5e20;
+            font-weight: 500;
+            padding: 20px;
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+            border-radius: 15px;
+            border-left: 5px solid #4caf50;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            input {
+                font-size: 20px;
+                padding: 12px 16px;
+            }
+            
+            .message {
+                font-size: 16px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Enter your first letter ✨</h1>
+        <div class="input-group">
+            <input type="text" id="letterInput" maxlength="1" placeholder="a-z">
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const input = document.getElementById('letterInput');
+        const message = document.getElementById('message');
+
+        // Unique lovely messages for each letter (a-z)
+        const messages = {
+            'a': 'A is for amazing adventures ahead! 🌟',
+            'b': 'B is for beautiful beginnings! 💖',
+            'c': 'C is for courageous hearts! 🌸',
+            'd': 'D is for dazzling dreams! ✨',
+            'e': 'E is for endless possibilities! 😊',
+            'f': 'F is for fabulous you! 🌺',
+            'g': 'G is for glowing with grace! 💫',
+            'h': 'H is for heartfelt happiness! 🥰',
+            'i': 'I is for incredible inspiration! 🌈',
+            'j': 'J is for joyful journeys! 🎉',
+            'k': 'K is for kindness that shines! 🌟',
+            'l': 'L is for lovely light within! 💕',
+            'm': 'M is for magical moments! 🪄',
+            'n': 'N is for nurturing your dreams! 🌱',
+            'o': 'O is for outstanding optimism! ☀️',
+            'p': 'P is for pure potential! 🚀',
+            'q': 'Q is for quiet strength! 💪',
+            'r': 'R is for radiant energy! 🌞',
+            's': 'S is for sweet serenity! 🌼',
+            't': 'T is for tremendous talent! 🎨',
+            'u': 'U is for unique and wonderful! 🌟',
+            'v': 'V is for vibrant vitality! ⚡',
+            'w': 'W is for whimsical wonders! 🦄',
+            'x': 'X is for extraordinary excellence! 🏆',
+            'y': 'Y is for youthful spirit! 🌈',
+            'z': 'Z is for zen-like awesomeness! 🧘‍♀️'
+        };
+
+        input.addEventListener('input', function(e) {
+            const letter = e.target.value.toLowerCase().trim();
+            
+            // Clear previous message
+            message.classList.remove('show');
+            
+            // Only show message for valid single letters a-z
+            if (letter.length === 1 && /^[a-z]$/i.test(letter)) {
+                const msg = messages[letter] || `${letter.toUpperCase()} is simply wonderful! ✨`;
+                message.textContent = msg;
+                setTimeout(() => message.classList.add('show'), 100);
+            } else {
+                message.textContent = '';
+            }
+        });
+
+        // Clear message when input loses focus and is empty
+        input.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                message.classList.remove('show');
+                setTimeout(() => message.textContent = '', 300);
+            }
+        });
+    </script>
+</body>
+</html>
